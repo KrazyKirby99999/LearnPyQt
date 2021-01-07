@@ -1,43 +1,39 @@
+
+from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
-from PyQt5.QtGui import *
 
 import sys
 
+
 class MainWindow(QMainWindow):
-    
+
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
 
         self.setWindowTitle("My App")
 
-        layout = QVBoxLayout()
-        widgets = [
-            QCheckBox,
-            QDateEdit,
-            QDateTimeEdit,
-            QDial,
-            QDoubleSpinBox,
-            QFontComboBox,
-            QLCDNumber,
-            QLabel,
-            QLineEdit,
-            QProgressBar,
-            QPushButton,
-            QRadioButton,
-            QSlider,
-            QSpinBox,
-            QTimeEdit
-        ]
+        tabs = QTabWidget()
+        tabs.setDocumentMode(True)
+        tabs.setTabPosition(QTabWidget.East)
+        tabs.setMovable(True)
 
-        for w in widgets:
-            layout.addWidget(w())
+        for n, color in enumerate(['red', 'green', 'blue', 'yellow']):
+            tabs.addTab(Color(color),color)
         
+        self.setCentralWidget(tabs)
 
-        widget = QWidget()
-        widget.setLayout(layout)
 
-        self.setCentralWidget(widget)
+class Color(QWidget):
+
+    def __init__(self, color, *args, **kwargs):
+        super(Color, self).__init__(*args, **kwargs)
+        self.setAutoFillBackground(True)
+
+        palette = self.palette()
+        palette.setColor(QPalette.Window, QColor(color))
+        self.setPalette(palette)
+
 
 app = QApplication(sys.argv)
 
