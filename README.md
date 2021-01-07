@@ -1,0 +1,1 @@
+Projects following a set of tutorials at https://www.learnpyqt.com/
